@@ -1,0 +1,56 @@
+# .NET Core
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# ASP.NET Core
+wwwroot/
+appsettings.Development.json
+appsettings.json
+*.db
+
+# Rider/IntelliJ
+.idea/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.suo
+*.csproj.user
+*.csproj.*.user
+*.ncb
+*.suo
+*.sdf
+*.opensdf
+*.cache
+*.pdb
+*.dbmdl
+*.bak
+
+# Rider
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nupkg
+
+# Environment-specific
+*.env
+
+# Logs
+Logs/
+*.log

@@ -25,9 +25,9 @@ namespace HrApp.Controllers
 
         [HttpPost("set")]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> Set([FromBody] RedisCacheRequestModel redisCacheRequestModel)
+        public async Task<IActionResult> Set([FromBody] RedisCacheRequest redisCacheRequest)
         {
-            await _redisCacheService.SetValueAsync(redisCacheRequestModel.Key, redisCacheRequestModel.Value);
+            await _redisCacheService.SetValueAsync(redisCacheRequest.Key, redisCacheRequest.Value);
             return Ok();
         }
 

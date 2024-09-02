@@ -1,4 +1,6 @@
-﻿using HrApp.Interfaces.Repositories;
+﻿using AutoMapper;
+using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
 using HrApp.Models;
 
@@ -7,16 +9,19 @@ namespace HrApp.Services
     public class RecruitmentService : IRecruitmentService
     {
         private readonly IRecruitmentRepository _RecruitmentRepository;
+        private readonly IMapper _mapper;
 
-        public RecruitmentService(IRecruitmentRepository RecruitmentRepository)
+        public RecruitmentService(IRecruitmentRepository RecruitmentRepository, IMapper mapper)
         {
             _RecruitmentRepository = RecruitmentRepository;
+            _mapper = mapper;
         }
 
-        public async Task<RecruitmentModel> CreateRecruitmentAsync(RecruitmentModel Recruitment)
+        public async Task<RecruitmentModel> CreateRecruitmentAsync(RecruitmentRequest Recruitment)
         {
-            await _RecruitmentRepository.AddAsync(Recruitment);
-            return Recruitment;
+            RecruitmentModel recruitmentModel = _mapper.Map<RecruitmentModel>(Recruitment);
+            await _RecruitmentRepository.AddAsync(recruitmentModel);
+            return recruitmentModel;
         }
 
         public async Task<List<RecruitmentModel>> GetAllRecruitmentsAsync()

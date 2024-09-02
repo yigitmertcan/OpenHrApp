@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using HrApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateLeaveRequest(LeaveRequestModel LeaveRequest)
+        public async Task<IActionResult> CreateLeaveRequest(LeaveRequestRequest LeaveRequest)
         {
             var createdLeaveRequest = await _LeaveRequestService.CreateLeaveRequestAsync(LeaveRequest);
             return CreatedAtAction(nameof(GetLeaveRequest), new { id = createdLeaveRequest.LeaveRequestId }, createdLeaveRequest);

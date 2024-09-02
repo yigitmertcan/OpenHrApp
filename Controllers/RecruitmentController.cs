@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using HrApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecruitment(RecruitmentModel Recruitment)
+        public async Task<IActionResult> CreateRecruitment(RecruitmentRequest Recruitment)
         {
             var createdRecruitment = await _RecruitmentService.CreateRecruitmentAsync(Recruitment);
             return CreatedAtAction(nameof(GetRecruitment), new { id = createdRecruitment.RecruitmentId }, createdRecruitment);

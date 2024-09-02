@@ -1,5 +1,6 @@
 ﻿using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
+using HrApp.Mappings;
 using HrApp.Models;
 
 namespace HrApp.Services
@@ -13,10 +14,11 @@ namespace HrApp.Services
             _UserRepository = UserRepository;
         }
 
-        public async Task<UserModel> CreateUserAsync(UserModel User)
+        public async Task<UserModel> CreateUserAsync(UserRequest User)
         {
-            await _UserRepository.AddAsync(User);
-            return User;
+            UserModel userModel = UserMapper.ToUser(User);
+            await _UserRepository.AddAsync(userModel);
+            return userModel;
         }
 
         public async Task<List<UserModel>> GetAllUsersAsync()

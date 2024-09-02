@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateJob(JobModel Job)
+        public async Task<IActionResult> CreateJob(JobRequest Job)
         {
             var createdJob = await _JobService.CreateJobAsync(Job);
             return CreatedAtAction(nameof(GetJob), new { id = createdJob.JobId }, createdJob);

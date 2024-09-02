@@ -1,4 +1,6 @@
-﻿using HrApp.Interfaces.Repositories;
+﻿using AutoMapper;
+using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
 using HrApp.Models;
 
@@ -7,16 +9,19 @@ namespace HrApp.Services
     public class TrainingService : ITrainingService
     {
         private readonly ITrainingRepository _TrainingRepository;
+        private readonly IMapper _mapper;
 
-        public TrainingService(ITrainingRepository TrainingRepository)
+        public TrainingService(ITrainingRepository TrainingRepository, IMapper mapper)
         {
             _TrainingRepository = TrainingRepository;
+            _mapper = mapper;
         }
 
-        public async Task<TrainingModel> CreateTrainingAsync(TrainingModel Training)
+        public async Task<TrainingModel> CreateTrainingAsync(TrainingRequest Training)
         {
-            await _TrainingRepository.AddAsync(Training);
-            return Training;
+            TrainingModel trainingModel =  _mapper.Map<TrainingModel>(Training);
+            await _TrainingRepository.AddAsync(trainingModel);
+            return trainingModel;
         }
 
         public async Task<List<TrainingModel>> GetAllTrainingsAsync()

@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using HrApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSalary(SalaryModel Salary)
+        public async Task<IActionResult> CreateSalary(SalaryRequest Salary)
         {
             var createdSalary = await _SalaryService.CreateSalaryAsync(Salary);
             return CreatedAtAction(nameof(GetSalary), new { id = createdSalary.SalaryId }, createdSalary);

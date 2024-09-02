@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAttendance(AttendanceModel Attendance)
+        public async Task<IActionResult> CreateAttendance(AttendanceRequest Attendance)
         {
             var createdAttendance = await _AttendanceService.CreateAttendanceAsync(Attendance);
             return CreatedAtAction(nameof(GetAttendance), new { id = createdAttendance.AttendanceId }, createdAttendance);

@@ -35,7 +35,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(UserModel User)
+        public async Task<IActionResult> CreateUser(UserRequest User)
         {
             var createdUser = await _UserService.CreateUserAsync(User);
             return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);

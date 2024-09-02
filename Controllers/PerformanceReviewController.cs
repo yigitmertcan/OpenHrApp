@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using HrApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePerformanceReview(PerformanceReviewModel PerformanceReview)
+        public async Task<IActionResult> CreatePerformanceReview(PerformanceReviewRequest PerformanceReview)
         {
             var createdPerformanceReview = await _PerformanceReviewService.CreatePerformanceReviewAsync(PerformanceReview);
             return CreatedAtAction(nameof(GetPerformanceReview), new { id = createdPerformanceReview.ReviewId }, createdPerformanceReview);

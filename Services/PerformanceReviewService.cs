@@ -1,4 +1,6 @@
-﻿using HrApp.Interfaces.Repositories;
+﻿using AutoMapper;
+using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
 using HrApp.Models;
 
@@ -7,16 +9,19 @@ namespace HrApp.Services
     public class PerformanceReviewService : IPerformanceReviewService
     {
         private readonly IPerformanceReviewRepository _PerformanceReviewRepository;
+        private readonly IMapper _mapper;
 
-        public PerformanceReviewService(IPerformanceReviewRepository PerformanceReviewRepository)
+        public PerformanceReviewService(IPerformanceReviewRepository PerformanceReviewRepository, IMapper mapper)
         {
             _PerformanceReviewRepository = PerformanceReviewRepository;
+            _mapper = mapper;
         }
 
-        public async Task<PerformanceReviewModel> CreatePerformanceReviewAsync(PerformanceReviewModel PerformanceReview)
+        public async Task<PerformanceReviewModel> CreatePerformanceReviewAsync(PerformanceReviewRequest PerformanceReview)
         {
-            await _PerformanceReviewRepository.AddAsync(PerformanceReview);
-            return PerformanceReview;
+            PerformanceReviewModel performanceReviewModel = _mapper.Map<PerformanceReviewModel>(PerformanceReview);
+            await _PerformanceReviewRepository.AddAsync(performanceReviewModel);
+            return performanceReviewModel;
         }
 
         public async Task<List<PerformanceReviewModel>> GetAllPerformanceReviewsAsync()

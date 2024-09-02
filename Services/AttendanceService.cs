@@ -1,4 +1,6 @@
-﻿using HrApp.Interfaces.Repositories;
+﻿using AutoMapper;
+using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
 using HrApp.Models;
 
@@ -7,16 +9,19 @@ namespace HrApp.Services
     public class AttendanceService : IAttendanceService
     {
         private readonly IAttendanceRepository _AttendanceRepository;
+        private readonly IMapper _mapper;
 
-        public AttendanceService(IAttendanceRepository AttendanceRepository)
+        public AttendanceService(IAttendanceRepository AttendanceRepository, IMapper mapper)
         {
             _AttendanceRepository = AttendanceRepository;
+            _mapper = mapper;
         }
 
-        public async Task<AttendanceModel> CreateAttendanceAsync(AttendanceModel Attendance)
+        public async Task<AttendanceModel> CreateAttendanceAsync(AttendanceRequest Attendance)
         {
-            await _AttendanceRepository.AddAsync(Attendance);
-            return Attendance;
+            AttendanceModel attendanceModel = _mapper.Map<AttendanceModel>(Attendance);
+            await _AttendanceRepository.AddAsync(attendanceModel);
+            return attendanceModel;
         }
 
         public async Task<List<AttendanceModel>> GetAllAttendancesAsync()

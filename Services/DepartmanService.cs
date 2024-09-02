@@ -1,4 +1,6 @@
-﻿using HrApp.Interfaces.Repositories;
+﻿using AutoMapper;
+using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
 using HrApp.Models;
 
@@ -7,16 +9,19 @@ namespace HrApp.Services
     public class DepartmanService : IDepartmanService
     {
         private readonly IDepartmanRepository _DepartmanRepository;
+        private readonly IMapper _mapper;
 
-        public DepartmanService(IDepartmanRepository DepartmanRepository)
+        public DepartmanService(IDepartmanRepository DepartmanRepository, IMapper mapper)
         {
             _DepartmanRepository = DepartmanRepository;
+            _mapper = mapper;
         }
 
-        public async Task<DepartmanModel> CreateDepartmanAsync(DepartmanModel Departman)
+        public async Task<DepartmanModel> CreateDepartmanAsync(DepartmanRequest Departman)
         {
-            await _DepartmanRepository.AddAsync(Departman);
-            return Departman;
+            DepartmanModel departmanModel = _mapper.Map<DepartmanModel>(Departman);
+            await _DepartmanRepository.AddAsync(departmanModel);
+            return departmanModel;
         }
 
         public async Task<List<DepartmanModel>> GetAllDepartmansAsync()

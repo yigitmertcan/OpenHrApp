@@ -3,6 +3,7 @@ using HrApp.Contexts;
 using HrApp.Interfaces.ApplicationServices;
 using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
+using HrApp.Mappings;
 using HrApp.Models;
 using HrApp.Repositories;
 using HrApp.Services;
@@ -85,13 +86,34 @@ builder.Services.AddAuthentication(options =>
 });
 
 //Repositiories
+builder.Services.AddTransient<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddTransient<IDepartmanRepository, DepartmanRepository>();
+builder.Services.AddTransient<IEmployerRepository, EmployerRepository>();
+builder.Services.AddTransient<IJobRepository, JobRepository>();
+builder.Services.AddTransient<ILeaveRequestRepository, LeaveRequestRepository>();
+builder.Services.AddTransient<IPerformanceReviewRepository, PerformanceReviewRepository>();
+builder.Services.AddTransient<IRecruitmentRepository, RecruitmentRepository>();
+builder.Services.AddTransient<ISalaryRepository, SalaryRepository>();
 builder.Services.AddTransient<ITrainingRepository, TrainingRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 //Services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
-builder.Services.AddTransient<ITrainingService, TrainingService>();
 
+builder.Services.AddTransient<IAttendanceService, AttendanceService>();
+builder.Services.AddTransient<IDepartmanService, DepartmanService>();
+builder.Services.AddTransient<IEmployerService, EmployerService>();
+builder.Services.AddTransient<IJobService, JobService>();
+builder.Services.AddTransient<ILeaveRequestService, LeaveRequestService>();
+builder.Services.AddTransient<IPerformanceReviewService, PerformanceReviewService>();
+builder.Services.AddTransient<IRecruitmentService, RecruitmentService>();
+builder.Services.AddTransient<ISalaryService, SalaryService>();
+builder.Services.AddTransient<ITrainingService, TrainingService>();
+builder.Services.AddTransient<IUserService, UserService>();
+
+//AutoMappers
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 

@@ -25,21 +25,21 @@ namespace HrApp.Repositories
             return await _context.Training.ToListAsync();
         }
 
-        public async Task AddAsync(TrainingModel product)
+        public async Task AddAsync(TrainingModel training)
         {
-            await _context.Training.AddAsync(product);
+            await _context.Training.AddAsync(training);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(TrainingModel product)
+        public async Task UpdateAsync(TrainingModel training)
         {
-            _context.Training.Update(product);
+            _context.Training.Update(training);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(TrainingModel product)
+        public async Task DeleteAsync(TrainingModel training)
         {
-            _context.Training.Remove(product);
+            _context.Training.Remove(training);
             await _context.SaveChangesAsync();
         }
     }

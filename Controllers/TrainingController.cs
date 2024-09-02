@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using HrApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTraining(TrainingModel Training)
+        public async Task<IActionResult> CreateTraining(TrainingRequest Training)
         {
             var createdTraining = await _TrainingService.CreateTrainingAsync(Training);
             return CreatedAtAction(nameof(GetTraining), new { id = createdTraining.TrainingId }, createdTraining);

@@ -1,4 +1,6 @@
-﻿using HrApp.Interfaces.Repositories;
+﻿using AutoMapper;
+using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
 using HrApp.Models;
 
@@ -7,16 +9,19 @@ namespace HrApp.Services
     public class EmployerService : IEmployerService
     {
         private readonly IEmployerRepository _EmployerRepository;
+        private readonly IMapper _mapper;
 
-        public EmployerService(IEmployerRepository EmployerRepository)
+        public EmployerService(IEmployerRepository EmployerRepository, IMapper mapper)
         {
             _EmployerRepository = EmployerRepository;
+            _mapper = mapper;
         }
 
-        public async Task<EmployerModel> CreateEmployerAsync(EmployerModel Employer)
+        public async Task<EmployerModel> CreateEmployerAsync(EmployerRequest Employer)
         {
-            await _EmployerRepository.AddAsync(Employer);
-            return Employer;
+            EmployerModel employerModel = _mapper.Map<EmployerModel>(Employer);
+            await _EmployerRepository.AddAsync(employerModel);
+            return employerModel;
         }
 
         public async Task<List<EmployerModel>> GetAllEmployersAsync()

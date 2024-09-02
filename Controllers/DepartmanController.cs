@@ -1,4 +1,5 @@
-﻿using HrApp.Interfaces.Services;
+﻿using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Services;
 using HrApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace HrApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateDepartman(DepartmanModel Departman)
+        public async Task<IActionResult> CreateDepartman(DepartmanRequest Departman)
         {
             var createdDepartman = await _DepartmanService.CreateDepartmanAsync(Departman);
             return CreatedAtAction(nameof(GetDepartman), new { id = createdDepartman.DepartmantId }, createdDepartman);

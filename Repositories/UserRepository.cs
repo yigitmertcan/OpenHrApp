@@ -25,21 +25,21 @@ namespace HrApp.Repositories
             return await _context.User.ToListAsync();
         }
 
-        public async Task AddAsync(UserModel product)
+        public async Task AddAsync(UserModel user)
         {
-            await _context.User.AddAsync(product);
+            await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(UserModel product)
+        public async Task UpdateAsync(UserModel user)
         {
-            _context.User.Update(product);
+            _context.User.Update(user);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(UserModel product)
+        public async Task DeleteAsync(UserModel user)
         {
-            _context.User.Remove(product);
+            _context.User.Remove(user);
             await _context.SaveChangesAsync();
         }
     }

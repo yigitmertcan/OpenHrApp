@@ -1,4 +1,6 @@
-﻿using HrApp.Interfaces.Repositories;
+﻿using AutoMapper;
+using HrApp.Dtos.Requests;
+using HrApp.Interfaces.Repositories;
 using HrApp.Interfaces.Services;
 using HrApp.Models;
 
@@ -7,16 +9,20 @@ namespace HrApp.Services
     public class SalaryService : ISalaryService
     {
         private readonly ISalaryRepository _SalaryRepository;
+        private readonly IMapper _mapper;
 
-        public SalaryService(ISalaryRepository SalaryRepository)
+        public SalaryService(ISalaryRepository SalaryRepository,IMapper mapper)
         {
             _SalaryRepository = SalaryRepository;
+            _mapper = mapper;
+
         }
 
-        public async Task<SalaryModel> CreateSalaryAsync(SalaryModel Salary)
+        public async Task<SalaryModel> CreateSalaryAsync(SalaryRequest salary)
         {
-            await _SalaryRepository.AddAsync(Salary);
-            return Salary;
+            SalaryModel salaryModel = _mapper.Map<SalaryModel>(salary);
+            await _SalaryRepository.AddAsync(salaryModel);
+            return salaryModel;
         }
 
         public async Task<List<SalaryModel>> GetAllSalarysAsync()
@@ -29,15 +35,15 @@ namespace HrApp.Services
             return await _SalaryRepository.GetByIdAsync(id);
         }
 
-        public async Task<bool> UpdateSalaryAsync(SalaryModel Salary)
+        public async Task<bool> UpdateSalaryAsync(SalaryModel salary)
         {
-            var existingSalary = await _SalaryRepository.GetByIdAsync(Salary.SalaryId);
+            var existingSalary = await _SalaryRepository.GetByIdAsync(salary.SalaryId);
             if (existingSalary == null)
             {
                 return false;
             }
 
-            existingSalary.SalaryId = Salary.SalaryId;
+            existingSalary.SalaryId = salary.SalaryId;
 
             await _SalaryRepository.UpdateAsync(existingSalary);
             return true;
@@ -45,13 +51,13 @@ namespace HrApp.Services
 
         public async Task<bool> DeleteSalaryAsync(int id)
         {
-            var Salary = await _SalaryRepository.GetByIdAsync(id);
-            if (Salary == null)
+            var salary = await _SalaryRepository.GetByIdAsync(id);
+            if (salary == null)
             {
                 return false;
             }
 
-            await _SalaryRepository.DeleteAsync(Salary);
+            await _SalaryRepository.DeleteAsync(salary);
             return true;
         }
     }

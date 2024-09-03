@@ -12,7 +12,16 @@ namespace HrApp.Mappings
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
-                Password = HashPassword(request.Password) // Password'u hashle
+                Password = HashPassword(request.Password),
+                EmployeeId = request.EmployeeId,
+                Username = request.Username,
+                RoleId = request.RoleId,
+                PhoneNumber = request.PhoneNumber,
+                DateOfBirth = request.DateOfBirth,
+                Address = request.Address,
+                City = request.City,
+                Country = request.Country,
+                ProfilePictureUrl = request.ProfilePictureUrl
             };
         }
 

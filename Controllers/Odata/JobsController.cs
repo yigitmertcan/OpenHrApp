@@ -1,11 +1,10 @@
-﻿
-using HrApp.Contexts;
+﻿using HrApp.Contexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Serilog;
 using System;
 
-namespace HrApp.Controllers
+namespace HrApp.Controllers.Odata
 {
     public class JobsController : ControllerBase
     {

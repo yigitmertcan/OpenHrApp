@@ -3,42 +3,24 @@ using HrApp.Interfaces.Services;
 using HrApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HrApp.Controllers
+namespace HrApp.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobController : ControllerBase
+    public class JobsController : ControllerBase
     {
         private readonly IJobService _JobService;
 
-        public JobController(IJobService JobService)
+        public JobsController(IJobService JobService)
         {
             _JobService = JobService;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetJobs()
-        {
-            var Jobs = await _JobService.GetAllJobsAsync();
-            return Ok(Jobs);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetJob(int id)
-        {
-            var Job = await _JobService.GetJobByIdAsync(id);
-            if (Job == null)
-            {
-                return NotFound();
-            }
-            return Ok(Job);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateJob(JobRequest Job)
         {
             var createdJob = await _JobService.CreateJobAsync(Job);
-            return CreatedAtAction(nameof(GetJob), new { id = createdJob.JobId }, createdJob);
+            return Ok(createdJob);
         }
 
         [HttpPut("{id}")]

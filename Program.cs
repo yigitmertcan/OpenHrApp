@@ -46,7 +46,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(redisConnection);
 builder.Services.AddControllers()
     .AddOData(opt =>
         opt.Select().Expand().Filter().OrderBy().SetMaxTop(100).Count()
-        .AddRouteComponents("odata", GetEdmModel(builder.Services)));
+        .AddRouteComponents("api/odata", GetEdmModel(builder.Services)));
 
 
 //ApplicationServices
